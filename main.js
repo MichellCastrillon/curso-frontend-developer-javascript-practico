@@ -6,11 +6,15 @@ const mobileMenu = document.querySelector('.mobile-menu');
 const menuCarrito = document.querySelector('.navbar-shopping-cart');
 const shoppingCartContainer = document.querySelector('#shoppingCartContainer');
 const cardsContainer = document.querySelector('.cards-container');
+const productDetailContainer =document.querySelector('#productDetail');
+const productDetailCloseIcon = document.querySelector('.product-detail-close')
+
 //al objeto creado le asigno la accion de hacer click y se crea una fincion 'toggleDesktopMenu'
 //para mostrar y ocultar el menu
 menuEmail.addEventListener('click',toggleDesktopMenu);
 burguerMenu.addEventListener('click',toggleBurguerMenu);
 menuCarrito.addEventListener('click',toggleCartMenu);
+productDetailCloseIcon.addEventListener('click', closeProductDetailAside);
 
 function toggleDesktopMenu(){
     //Si esta el menu mobile cerrado
@@ -25,6 +29,7 @@ function toggleDesktopMenu(){
 
 }
 
+//Menu mobile
 function toggleBurguerMenu(){
     //Si esta el menu mobile cerrado
     const isCartMenuClosed = shoppingCartContainer.classList.contains('inactive');
@@ -32,6 +37,8 @@ function toggleBurguerMenu(){
     if(!isCartMenuClosed){
         aside.classList.add('inactive')
     } 
+
+    closeProductDetailAside();
 
     mobileMenu.classList.toggle('inactive');
 }
@@ -48,9 +55,24 @@ function toggleCartMenu(){
         desktopMenu.classList.add('inactive')
     }
 
+    //cerrar el detalle del product cuando vpy abrir el carrito
+    const isProductDetailClosed = productDetailContainer.classList.contains('inactive');
+
+    if(!isProductDetailClosed){
+        productDetailContainer.classList.add('inactive')
+    }
+
    shoppingCartContainer.classList.toggle('inactive')
 }
 
+function openProductDetailAside (){
+    shoppingCartContainer.classList.add('inactive')
+    productDetailContainer.classList.remove('inactive');
+}
+
+function closeProductDetailAside (){
+    productDetailContainer.classList.add('inactive');
+}
 //===============================
 //=======Agregar productos=======
 //===============================
@@ -98,8 +120,10 @@ function renderProducts(arr){
         const productCard = document.createElement('div');
         productCard.classList.add('product-card');
 
-        const ProductImg = document.createElement('img');
-        ProductImg.setAttribute('src', product.image);
+        const productImg = document.createElement('img');
+        productImg.setAttribute('src', product.image);
+        //le damos un evento a ese elemento html creado desde javascript
+        productImg.addEventListener('click',openProductDetailAside);
 
         const productInfo = document.createElement('div');
         productInfo.classList.add('product-info');
@@ -113,21 +137,21 @@ function renderProducts(arr){
         productInfoDiv.appendChild(productPrice);
         productInfoDiv.appendChild(productName);
 
-        const ProductInfoFigure = document.createElement('figure');
-        const ProductInfoImgCart = document.createElement('img');
+        const productInfoFigure = document.createElement('figure');
+        const productInfoImgCart = document.createElement('img');
         //esta imagen como no varia si se agrega de una vez
-        ProductInfoImgCart.setAttribute('src', './icons/bt_add_to_cart.svg');
+        productInfoImgCart.setAttribute('src', './icons/bt_add_to_cart.svg');
 
         //para agregar la imagen dentro del figure y hacer esto:
         //<figure>
         //       <img src="./icons/bt_add_to_cart.svg" alt="">
         //</figure>
-        ProductInfoFigure.appendChild(ProductInfoImgCart)
+        productInfoFigure.appendChild(productInfoImgCart)
 
         productInfo.appendChild(productInfoDiv);
-        productInfo.appendChild(ProductInfoFigure);
+        productInfo.appendChild(productInfoFigure);
 
-        productCard.appendChild(ProductImg);
+        productCard.appendChild(productImg);
         productCard.appendChild(productInfo);
 
         cardsContainer.appendChild(productCard);
