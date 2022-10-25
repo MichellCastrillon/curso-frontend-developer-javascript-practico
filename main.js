@@ -4,7 +4,7 @@ const desktopMenu = document.querySelector('.desktop-menu');
 const burguerMenu  = document.querySelector('.menu');
 const mobileMenu = document.querySelector('.mobile-menu');
 const menuCarrito = document.querySelector('.navbar-shopping-cart');
-const aside = document.querySelector('.product-detail');
+const shoppingCartContainer = document.querySelector('#shoppingCartContainer');
 const cardsContainer = document.querySelector('.cards-container');
 //al objeto creado le asigno la accion de hacer click y se crea una fincion 'toggleDesktopMenu'
 //para mostrar y ocultar el menu
@@ -14,10 +14,10 @@ menuCarrito.addEventListener('click',toggleCartMenu);
 
 function toggleDesktopMenu(){
     //Si esta el menu mobile cerrado
-    const isCartMenuClosed = aside.classList.contains('inactive');
+    const isCartMenuClosed = shoppingCartContainer.classList.contains('inactive');
 
     if(!isCartMenuClosed){
-        aside.classList.add('inactive')
+        shoppingCartContainer.classList.add('inactive')
     } 
 
     //quita o pone la clase inactive para que aparezca o desaparezca el menu
@@ -27,7 +27,7 @@ function toggleDesktopMenu(){
 
 function toggleBurguerMenu(){
     //Si esta el menu mobile cerrado
-    const isCartMenuClosed = aside.classList.contains('inactive');
+    const isCartMenuClosed = shoppingCartContainer.classList.contains('inactive');
     //Si el menu del carrito esta abierto que lo cierre
     if(!isCartMenuClosed){
         aside.classList.add('inactive')
@@ -48,7 +48,7 @@ function toggleCartMenu(){
         desktopMenu.classList.add('inactive')
     }
 
-   aside.classList.toggle('inactive')
+   shoppingCartContainer.classList.toggle('inactive')
 }
 
 //===============================
